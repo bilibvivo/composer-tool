@@ -6,6 +6,7 @@
             "email": "dengdc@xiaoma.cn"
         }
     ],
+    "license": "MIT",
     "require": {},
     "require-dev": {
         "phpunit/phpunit": ">=5.7"

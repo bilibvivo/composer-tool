@@ -1,5 +1,4 @@
 <?php
-
 use Dtool\Ytb\Search;
 use PHPUnit\Framework\TestCase;
 
