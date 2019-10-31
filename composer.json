@@ -1,0 +1,18 @@
+{
+    "name": "dume2007/composer-tool",
+    "authors": [
+        {
+            "name": "ddc",
+            "email": "dengdc@xiaoma.cn"
+        }
+    ],
+    "require": {},
+    "require-dev": {
+        "phpunit/phpunit": ">=5.7"
+    },
+    "autoload": {
+        "psr-4": {
+            "Dtool\\": "src/"
+        }
+    }
+}
