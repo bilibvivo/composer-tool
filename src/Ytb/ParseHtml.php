@@ -9,6 +9,7 @@ use RuntimeException;
 class ParseHtml
 {
     /**
+     * 从ytb搜索结果html中提取数组
      * @param $html
      * @param $keyword
      * @return array
