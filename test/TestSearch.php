@@ -29,6 +29,9 @@ class TestSearch extends TestCase
         }
     }
 
+    /**
+     * 测试ytb搜索
+     */
     public function testYtbSearch() {
         $keyword = "音乐";
         $search = new Search("http://127.0.0.1:1080");
@@ -51,6 +54,15 @@ class TestSearch extends TestCase
 
         $this->assertIsArray($result);
         $this->assertGreaterThan(0, count($result));
-        $this->db($result);
+        //$this->db($result);
+    }
+
+    /**
+     * 测试歌手搜索
+     * @throws Exception
+     */
+    public function testSingerSearch() {
+        $site = "Nineku";
+        $search = \Dtool\Singer\Search::getInstance($site);
     }
 }

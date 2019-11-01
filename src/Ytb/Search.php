@@ -15,8 +15,10 @@ class Search
     public $httpClient;
     public $jar;
     public $cookie;
-    public function __construct($proxy = '')
+    public function __construct($proxy = '', $jar = '', $cookie = '')
     {
+        $this->jar = $jar;
+        $this->cookie = $cookie;
         $this->httpClient = new Client([
             'proxy' => $proxy,
             'verify' => false,
@@ -32,7 +34,8 @@ class Search
      */
     public function getList($keyword = '') : ResponseInterface {
         try {
-            $r = $this->httpClient->request('GET', sprintf($this->url, urlencode($keyword)), [
+            $url = sprintf($this->url, urlencode($keyword));
+            $r = $this->httpClient->request('GET', $url, [
                 'cookies' => $this->jar,
                 'headers' => [
                     'User-Agent' => 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36',
