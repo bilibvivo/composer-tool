@@ -5,7 +5,7 @@ use Dtool\Ytb\ParseHtml;
 use Dtool\Ytb\Search;
 use PHPUnit\Framework\TestCase;
 
-class TestSearch extends TestCase
+class TestYtbSearch extends TestCase
 {
     public $db;
     public function __construct($name = null, array $data = [], $dataName = '')
@@ -34,7 +34,7 @@ class TestSearch extends TestCase
      */
     public function testYtbSearch() {
         $keyword = "音乐";
-        $search = new Search("http://127.0.0.1:1080");
+        $search = new Search("http://127.0.0.1:1087");
         try {
             $httpResult = $search->getList($keyword);
         } catch (Exception $e) {

@@ -1,19 +1,20 @@
 <?php
 namespace Dtool\Singer;
 
-use Dtool\Singer\Nineku\SinggerSearchNineku;
+use Dtool\BaseSearch;
+use Dtool\Singer\Nineku\SingerSearchNineku;
 
-class Search
+class Search extends BaseSearch
 {
     /**
      * @param $site
-     * @return SinggerSearchNineku
+     * @return SingerSearchNineku
      * @throws \Exception
      */
     public static function getInstance($site) {
         switch ($site) {
             case "Nineku":
-                $obj = new SinggerSearchNineku();
+                $obj = new SingerSearchNineku();
                 break;
             default:
                 throw new \Exception("未知网站类型");
