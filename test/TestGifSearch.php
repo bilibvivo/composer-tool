@@ -17,7 +17,7 @@ class TestGifSearch extends \PHPUnit\Framework\TestCase
 
     public function testGiphyTagListSearch() {
         $search = \Dtool\Gif\Search::getInstance("Giphy");
-        $tagList = $search->getList();
+        $tagList = $search->getList([__DIR__ . '/../src/Gif/Giphy/source/tags/']);
         print_r($tagList);
 
         $this->assertGreaterThan(0, count($tagList));

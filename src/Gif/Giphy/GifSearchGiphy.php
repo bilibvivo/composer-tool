@@ -67,15 +67,32 @@ class GifSearchGiphy extends BaseSearch implements GifSearchInterface
 
     /**
      * 抓取gifs列表地址
+     * @param array $outFiles
+     * @return array
      */
-    public function getList()
+    public function getList($outFiles = [])
     {
-        $dir = __DIR__ . '/source/tags/';
-        $files = scandir($dir);
         $tags = [];
+        $files = $outFiles;
+
+        if (!$files) {
+            $dir = __DIR__ . '/source/tags/';
+            $scanFiles = scandir($dir);
+            foreach ($scanFiles as $file) {
+                if (!is_file($dir . $file)) continue;
+                $files[] = $dir . $file;
+            }
+        }
+
         foreach ($files as $file) {
-            if (!is_file($dir . $file)) continue;
-            $html = file_get_contents($dir . $file);
+            if (!file_exists($file) || !is_file($file)) {
+                var_dump("文件不存在 $file");
+                continue;
+            } else {
+                echo "$file \n";
+            }
+
+            $html = file_get_contents($file);
             preg_match('/saved from url=\(\d+\)(.*?)\s+-->/i', $html, $out);
             $link = trim($out[1]);
             $temp = [];
