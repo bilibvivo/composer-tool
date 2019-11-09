@@ -16,8 +16,8 @@ namespace Dtool\Translate;
  **/
 define("CURL_TIMEOUT",   10); 
 define("URL",            "http://api.fanyi.baidu.com/api/trans/vip/translate"); 
-define("APP_ID",         "20191103000352258"); //替换为您的APPID
-define("SEC_KEY",        "dVwvHwASxhbxqTPUR9u1");//替换为您的密钥
+!defined("APP_ID") and define("APP_ID", ""); //替换为您的APPID
+!defined("SEC_KEY") and define("SEC_KEY", "");//替换为您的密钥
 
 class BaiduTrans
 {
