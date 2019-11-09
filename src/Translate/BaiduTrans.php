@@ -4,11 +4,11 @@
  * Copyright (c) 2015 Baidu.com, Inc. All Rights Reserved
  * 
 **************************************************************************/
-
+namespace Dtool\Translate;
 
 
 /**
- * @file baidu_transapi.php 
+ * @file BaiduTrans.php
  * @author mouyantao(mouyantao@baidu.com)
  * @date 2015/06/23 14:32:18
  * @brief 
@@ -16,8 +16,8 @@
  **/
 define("CURL_TIMEOUT",   10); 
 define("URL",            "http://api.fanyi.baidu.com/api/trans/vip/translate"); 
-define("APP_ID",         "YOUR APP ID"); //替换为您的APPID
-define("SEC_KEY",        "YOUR SEC KEY");//替换为您的密钥
+define("APP_ID",         "20191103000352258"); //替换为您的APPID
+define("SEC_KEY",        "dVwvHwASxhbxqTPUR9u1");//替换为您的密钥
 
 class BaiduTrans
 {
@@ -32,8 +32,8 @@ class BaiduTrans
             'to' => $to,
 
         );
-        $args['sign'] = buildSign($query, APP_ID, $args['salt'], SEC_KEY);
-        $ret = call(URL, $args);
+        $args['sign'] = $this->buildSign($query, APP_ID, $args['salt'], SEC_KEY);
+        $ret = $this->call(URL, $args);
         $ret = json_decode($ret, true);
         return $ret;
     }
@@ -57,7 +57,7 @@ class BaiduTrans
             if ($i > 0) {
                 sleep(1);
             }
-            $ret = callOnce($url, $args, $method, false, $timeout, $headers);
+            $ret = $this->callOnce($url, $args, $method, false, $timeout, $headers);
             $i++;
         }
         return $ret;
@@ -67,11 +67,11 @@ class BaiduTrans
     {/*{{{*/
         $ch = curl_init();
         if ($method == "post") {
-            $data = convert($args);
+            $data = $this->convert($args);
             curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
             curl_setopt($ch, CURLOPT_POST, 1);
         } else {
-            $data = convert($args);
+            $data = $this->convert($args);
             if ($data) {
                 if (stripos($url, "?") > 0) {
                     $url .= "&$data";

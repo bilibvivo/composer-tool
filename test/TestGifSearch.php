@@ -1,4 +1,7 @@
 <?php
+
+use Dtool\Translate\BaiduTrans;
+
 /**
  * Created by PhpStorm.
  * User: dume
@@ -7,6 +10,14 @@
  */
 class TestGifSearch extends \PHPUnit\Framework\TestCase
 {
+    public function testTranslate() {
+        $BaiduTrans = new BaiduTrans();
+        $query = "big trump";
+
+        $r = $BaiduTrans->translate($query, 'auto', 'zh');
+        var_dump($r);
+    }
+
     public function testGiphyCategoriesSearch() {
         $search = \Dtool\Gif\Search::getInstance("Giphy");
         $categories = $search->getCategories();
