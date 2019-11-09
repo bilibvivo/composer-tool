@@ -68,9 +68,10 @@ class GifSearchGiphy extends BaseSearch implements GifSearchInterface
     /**
      * 抓取gifs列表地址
      * @param array $outFiles
+     * @param string $tagClass
      * @return array
      */
-    public function getList($outFiles = [])
+    public function getList($outFiles = [], $tagClass = 'sc-jbKcbu eeWxRj')
     {
         $tags = [];
         $files = $outFiles;
@@ -120,7 +121,7 @@ class GifSearchGiphy extends BaseSearch implements GifSearchInterface
                 }
                 $img = Help::cut('<div class="U-isuVilGM7PfAL6nUBxZ">', '</a>', $item);
                 $temp['list'][$itemLink]['img'] = Help::cut('href="', '"', $img);
-                $itemTags = Help::cut('<div class="sc-jbKcbu eeWxRj">', '</div>', $html);
+                $itemTags = Help::cut('<div class="'.$tagClass.'">', '</div>', $html);
                 preg_match_all('/<a href="([^"]*)"[^>]*>(.*?)<\/a>/i', $itemTags, $out5);
                 foreach ($out5[2] as $m => $item2) {
                     $temp['list'][$itemLink]['tags'][$item2] = $out5[1][$m];
