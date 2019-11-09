@@ -111,13 +111,15 @@ class GifSearchGiphy extends BaseSearch implements GifSearchInterface
                 $a = end($a);
                 $a = explode('-', $a);
                 $id = array_pop($a);
+
                 $temp['list'][$itemLink]['id'] = $id;
                 $temp['list'][$itemLink]['title'] = implode(' ', $a);
                 $title = Help::cut('<img alt="', '"', $item);
                 if ($title) {
                     $temp['list'][$itemLink]['title'] = $title;
                 }
-
+                $img = Help::cut('<div class="U-isuVilGM7PfAL6nUBxZ">', '</a>', $item);
+                $temp['list'][$itemLink]['img'] = Help::cut('href="', '"', $img);
                 $itemTags = Help::cut('<div class="sc-jbKcbu eeWxRj">', '</div>', $html);
                 preg_match_all('/<a href="([^"]*)"[^>]*>(.*?)<\/a>/i', $itemTags, $out5);
                 foreach ($out5[2] as $m => $item2) {
