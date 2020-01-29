@@ -29,12 +29,35 @@ class TestYtbSearch extends TestCase
         }
     }
 
+    public function testYtbVideos() {
+        $search = new Search("http://127.0.0.1:1080");
+        $savePath = __DIR__ . '/files/';
+        try {
+            $httpResult = $search->getListVideos('https://www.youtube.com/playlist?list=UUW07SNrHLSGBGjKbciVq0TQ', $savePath);
+        } catch (Exception $e) {
+            echo $e->getMessage();
+        }
+
+        $this->assertEquals($httpResult, true);
+    }
+
+    public function testYtbPlaylist() {
+        $search = new Search("http://127.0.0.1:1080");
+        try {
+            $httpResult = $search->getPlayList('https://www.youtube.com/playlist?list=UUW07SNrHLSGBGjKbciVq0TQ');
+        } catch (Exception $e) {
+            echo $e->getMessage();
+        }
+
+        $this->assertEquals($httpResult, true);
+    }
+
     /**
      * 测试ytb搜索
      */
     public function testYtbSearch() {
         $keyword = "音乐";
-        $search = new Search("http://127.0.0.1:1087");
+        $search = new Search("http://127.0.0.1:1080");
         try {
             $httpResult = $search->getList($keyword);
         } catch (Exception $e) {
@@ -47,7 +70,7 @@ class TestYtbSearch extends TestCase
 
         try {
             $result = ParseHtml::getYtbList($searchHtml, $keyword);
-            //print_r($result);
+            print_r($result);
         } catch (Exception $e) {
             echo $e->getMessage();
         }
