@@ -14,13 +14,17 @@ class Search extends BaseSearch
 {
     public $url = 'https://www.youtube.com/results?search_query=%s';
 
+    public function getSourcePath() {
+        return __DIR__ . '/source/';
+    }
+    
     /**
      * @param $url
      * @param $savePath
      * @throws \Exception
      */
     public function getListVideos($url, $savePath) {
-        $file = __DIR__ . '/source/' . md5($url) . '.txt';
+        $file = $this->getSourcePath() . md5($url) . '.txt';
         try {
             $this->getPlayList($url);
             $lines = @file($file);
@@ -51,7 +55,7 @@ class Search extends BaseSearch
      */
     public function getPlayList($url, $override = false) {
         try {
-            $file = __DIR__ . '/source/' . md5($url) . '.txt';
+            $file = $this->getSourcePath() . md5($url) . '.txt';
             $lines = @file($file);
             if (!$lines || $override) {
                 $cmd = sprintf("youtube-dl --proxy socks5://127.0.0.1:1080 -i -j --flat-playlist '%s' > %s",
