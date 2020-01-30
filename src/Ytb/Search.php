@@ -17,7 +17,7 @@ class Search extends BaseSearch
     public function getSourcePath() {
         return __DIR__ . '/source/';
     }
-    
+
     /**
      * @param $url
      * @param $savePath
@@ -33,7 +33,7 @@ class Search extends BaseSearch
                 print_r($data);
                 $saveFile = $savePath . $data['id'] . '.mp4';
                 if (!file_exists($saveFile)) {
-                    $cmd = "youtube-dl --proxy socks5://127.0.0.1:1080 --no-overwrites --no-playlist -f mp4 -o '{$savePath}%(id)s.%(ext)s' 'https://www.youtube.com/watch?v=" . $data['id'] . "'";
+                    $cmd = "youtube-dl --proxy socks5://127.0.0.1:1080 --no-overwrites --no-playlist --write-thumbnail -f mp4 -o '{$savePath}%(id)s.%(ext)s' 'https://www.youtube.com/watch?v=" . $data['id'] . "'";
                     echo Help::echo2($k . "：" . $cmd);
                     shell_exec($cmd);
                     echo Help::echo2($k . "：{$saveFile} downloaded success, size:".filesize($saveFile));
