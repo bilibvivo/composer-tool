@@ -29,11 +29,15 @@ class TestYtbSearch extends TestCase
         }
     }
 
+    /**
+     * https://www.youtube.com/channel/UCv-ukeCLrH9ObDJyrKvKK2g/videos
+     * https://www.youtube.com/playlist?list=UUW07SNrHLSGBGjKbciVq0TQ
+     */
     public function testYtbVideos() {
         $search = new Search("http://127.0.0.1:1080");
         $savePath = __DIR__ . '/files/';
         try {
-            $httpResult = $search->getListVideos('https://www.youtube.com/playlist?list=UUW07SNrHLSGBGjKbciVq0TQ', $savePath);
+            $httpResult = $search->getListVideos('https://www.youtube.com/channel/UCv-ukeCLrH9ObDJyrKvKK2g/videos', $savePath);
         } catch (Exception $e) {
             echo $e->getMessage();
         }
