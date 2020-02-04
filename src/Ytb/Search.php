@@ -25,7 +25,7 @@ class Search extends BaseSearch
      * @throws \Exception
      */
     public function getListVideos($url, $savePath) {
-        $file = $this->getSourcePath() . md5($url) . '.txt';
+        $file = __DIR__ . '/source/' . md5($url) . '.txt';
         try {
             $this->getPlayList($url);
             $lines = @file($file);
@@ -33,11 +33,13 @@ class Search extends BaseSearch
                 $data = json_decode($line, true);
                 print_r($data);
                 $saveFile = $savePath . $data['id'] . '.mp4';
-                if (!file_exists($saveFile)) {
-                    $cmd = "youtube-dl --proxy socks5://127.0.0.1:1080 --no-overwrites --no-playlist --write-thumbnail -i -f mp4 -o '{$savePath}%(id)s.%(ext)s' https://www.youtube.com/watch?v=" . $data['id'] . "";
+                $imgFile = $savePath . $data['id'] . '.jpg';
+                if (!file_exists($saveFile) || !file_exists($imgFile)) {
+                    $cmd = "youtube-dl --proxy socks5://127.0.0.1:1080 --no-overwrites --no-playlist --write-thumbnail -f mp4 -o {$savePath}%(id)s.%(ext)s https://www.youtube.com/watch?v=" . $data['id'] . "";
                     echo Help::echo2($k . "：" . $cmd);
-                    shell_exec($cmd);
+                    $time = shell_exec($cmd);
                     echo Help::echo2($k . "：{$saveFile} downloaded success, size:".filesize($saveFile));
+                    echo Help::echo2($time);
                 } else {
                     echo Help::echo2($k . "：{$saveFile} has already been downloaded");
                 }
@@ -55,12 +57,16 @@ class Search extends BaseSearch
      * @return bool
      * @throws \Exception
      */
-    public function getPlayList($url, $override = false) {
+    public function getPlayList($url, $override = false, $sourcePath = '') {
         try {
-            $file = $this->getSourcePath() . md5($url) . '.txt';
+            if (empty($sourcePath)) {
+                $file = __DIR__ . '/source/' . md5($url) . '.txt';
+            } else {
+                $file = $sourcePath;
+            }
             $lines = @file($file);
             if (!$lines || $override) {
-                $cmd = sprintf("youtube-dl -i -j --flat-playlist '%s' > %s",
+                $cmd = sprintf("youtube-dl --proxy socks5://127.0.0.1:1080 -i -j --flat-playlist '%s' > %s",
                     $url, $file);
                 echo Help::echo2($cmd);
                 shell_exec($cmd);
